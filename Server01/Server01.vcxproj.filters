@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="server">
+      <UniqueIdentifier>{566bfa08-0766-4b13-bd40-23f6a6e15435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{8370bd18-7d02-4ec5-a45e-38fb97727f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="route">
+      <UniqueIdentifier>{e7c8ca0c-f257-4105-8b44-adf518711972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="web">
+      <UniqueIdentifier>{04c3fdf0-b84e-404f-bf7e-07e530ed1944}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="server\Server.cpp">
+      <Filter>server</Filter>
+    </ClCompile>
+    <ClCompile Include="web\test\Test.h">
+      <Filter>web</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="log\Log.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="route\Route.h">
+      <Filter>route</Filter>
+    </ClInclude>
+    <ClInclude Include="route\RouteABS.h">
+      <Filter>route</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

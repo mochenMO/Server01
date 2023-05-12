@@ -1,0 +1,79 @@
+
+
+<!--
+	1.还要完成的界面
+	(1) 404界面
+
+	2.还要完成的功能
+	(1) 页面的跳转，主要由js控制跳转
+		(1.1) 有些页面要先向服务端发送请求，并等待确认信息后才能跳转，如登录和主页面
+		(1.2) 有菜单栏的页面跳转，用下面的例子
+	
+
+-->>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visit Local Server</title>
+</head>
+<body>
+    <h1>Visit Local Server Example</h1>
+    <button onclick="visitServer()">Visit Server</button>
+
+    <script>
+		function visitServer() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					alert("Server Response: " + this.responseText);
+				}
+			};
+			xhttp.open("GET", "http://localhost:8888/test", true); // ���� GET ���󵽱��ط������� /sample ·��
+			xhttp.send();
+			console.log("button is on click");
+		}
+    </script>
+</body>
+</html>
+
+
+
+
+<!-- 有菜单栏的页面跳转???
+	
+那么一个页面有一个菜单栏和一个内容页面，每次改变菜单栏的选项，菜单栏不变，内容页面改变?????????
+
+这种情况通常使用JavaScript或类似技术可以轻松地实现。
+具体来说，可以通过JavaScript监听菜单栏中的选项卡(比如点击事件)，然后在内容区域动态插入不同的HTML内容。
+这就需要在HTML中存在一个固定的菜单和一个占位符(如 <div>)，当菜单选项发生变化时，利用JavaScript替换该<div>占位符中的内容。
+例如，可以使用jQuery库操作DOM并动态更改内容。示例代码如下：
+
+<ul>
+	<li><a id="option1" href="#">选项一</a></li>
+	<li><a id="option2" href="#">选项二</a></li>
+	...
+  </ul>
+  
+
+  <div id="content"></div>
+  
+
+  $(document).ready(function() {
+	// 当“选项一”被点击时加载指定内容
+	$('#option1').click(function() {
+	  $('#content').load('content1.html');
+	});
+   
+	// 当“选项二”被点击时加载另一个文件中的内容
+	$('#option2').click(function() {
+	  $('#content').load('content2.html');
+	});
+	...
+  });
+  在上述代码中，“#content”是一个空的<div>元素，通过绑定点击事件而调用.load()方法即可在点击对应选项卡时加载指定的 HTML 内容页面。
+
+
+-->
