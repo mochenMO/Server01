@@ -15,12 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="server\Server.cpp">
+    <ClCompile Include="server\Server.h">
       <Filter>server</Filter>
     </ClCompile>
     <ClCompile Include="web\test\Test.h">
       <Filter>web</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="route\Route.h">
