@@ -23,14 +23,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="log\Log.h">
-      <Filter>log</Filter>
-    </ClInclude>
     <ClInclude Include="route\Route.h">
       <Filter>route</Filter>
     </ClInclude>
     <ClInclude Include="route\RouteABS.h">
       <Filter>route</Filter>
+    </ClInclude>
+    <ClInclude Include="Log\log.h">
+      <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
