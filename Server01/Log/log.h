@@ -46,4 +46,15 @@ namespace myLog
 	}
 }
 
+
+
+
+
+
+
 #endif  // !_LOG_H_
+
+
+
+
+
