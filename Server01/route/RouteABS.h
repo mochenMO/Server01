@@ -3,7 +3,8 @@
 #ifndef _ROUTEABS_H_
 #define _ROUTEABS_H_
 
-#include<vector>
+#include <vector>
+#include "../server/Server.h"
 
 namespace myRoute
 { 
@@ -13,7 +14,7 @@ namespace myRoute
 class RouteABS
 {
 public:
-	virtual void dealRequest(char* inputHttpReq, char* outputHttpReq, std::vector<void*> publicRes) = 0;
+	virtual void dealRequest(myServer::SocketItem& clientSockItem, char* url, char* httpRequest, std::vector<void*>& publicRes) = 0;
 
 	virtual ~RouteABS() = 0 {};
 

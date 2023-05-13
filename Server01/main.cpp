@@ -1,3 +1,16 @@
+
+
+/*// 开发任务
+*  (1) 改写route.get_routeElement(url);
+*  (2) js通信
+*  (3) 上传html,js,css,bmg,json
+*  (4) json解析
+*/
+
+
+
+
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -9,11 +22,12 @@
 #include "server/Server.h"
 
 
-void RequestMainFunc(SOCKET* clientsock)
+void RequestMainFunc(myServer::SocketItem& clientSockItem)
 {
     myRoute::Route route{};
+    
     std::vector<void*> res(10, nullptr);
-    res[0] = clientsock;
+    //res[0] = clientsock;
 
     char buf[1024] = { 0 };
     int len = 0;
@@ -23,7 +37,7 @@ void RequestMainFunc(SOCKET* clientsock)
 
 
 
-        len = recv(*clientsock, buf, 1024, 0);
+        len = recv(clientSockItem.socket, buf, 1024, 0);
         myLog::log(len, -1, "error: recv()失败 ==> clientsock:连接以停止");
         // myLog::log(len, -1, "error: myRoute::route::get_fileAddr()失败 ==> " + "不存在");  // 为什么不行？？？？
         printf("%s\n", buf);  // 输出get请求报
@@ -33,7 +47,7 @@ void RequestMainFunc(SOCKET* clientsock)
 
 
         myRoute::RouteABS* routeElement = route.get_routeElement(url);
-        routeElement->dealRequest(buf, buf, res);
+        routeElement->dealRequest(clientSockItem, url,buf, res);
 
     }
 
@@ -50,8 +64,12 @@ int main()
 
     myServer::Server server{};  // myServer::Server server("127.10.10.1",11111);
     myServer::SocketItem clientItem01 = server.accept_server();
-    RequestMainFunc(&clientItem01.socket);
+    RequestMainFunc(clientItem01);
 
 
     return 0;
 }
+
+
+
+
