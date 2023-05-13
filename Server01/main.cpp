@@ -37,7 +37,7 @@ void RequestMainFunc(myServer::SocketItem& clientSockItem)
     int len = 0;  // 接收recv的返回值
     
 
-    while (1) {   // 为什么顶部的页面栏一直在转圈圈？ 怎么设置顶部的页面栏的图标？
+    // while (1) {   
         len = recv(clientSockItem.socket, buf, 10240, 0);   
         myLog::log(len, -1, "error: recv()失败 ==> clientsock:连接以停止");
         buf[len + 1] = '\0';   // 注意：因为recv每次覆盖原数据不会在结尾加'\0'，所以要自己加上
@@ -55,7 +55,7 @@ void RequestMainFunc(myServer::SocketItem& clientSockItem)
         myRoute::RouteABS* routeElement = route.get_routeElement(url);   // 根据url搜索指定的路由
         routeElement->dealRequest(clientSockItem, url,buf, res);         // 交给指定的路由处理
 
-    }
+   // }
 
 
     delete[] url;
@@ -71,9 +71,17 @@ int main()
 
     // 用std::thread实现一个线程池，accept操作也要一个单独的线程控制吗(先看看笔记)。
 
+
+
     myServer::Server server{};  // myServer::Server server("127.10.10.1",11111);
-    myServer::SocketItem clientItem01 = server.accept_server();
-    RequestMainFunc(clientItem01);
+
+    while (1) {
+        myServer::SocketItem clientItem01 = server.accept_server();  // 为什么顶部的页面栏一直在转圈圈？ 怎么设置顶部的页面栏的图标？
+        RequestMainFunc(clientItem01);
+    }
+
+    
+    
 
 
     return 0;

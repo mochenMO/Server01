@@ -13,6 +13,9 @@
     <Filter Include="web">
       <UniqueIdentifier>{04c3fdf0-b84e-404f-bf7e-07e530ed1944}</UniqueIdentifier>
     </Filter>
+    <Filter Include="http">
+      <UniqueIdentifier>{884720a1-94ff-4db2-bb40-8b1668b1890a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="server\Server.h">
@@ -27,7 +30,7 @@
     <ClInclude Include="route\RouteABS.h">
       <Filter>route</Filter>
     </ClInclude>
-    <ClInclude Include="Log\log.h">
+    <ClInclude Include="Log\Log.h">
       <Filter>log</Filter>
     </ClInclude>
     <ClInclude Include="web\login\Login.h">
@@ -35,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="web\test\Test.h">
       <Filter>web</Filter>
+    </ClInclude>
+    <ClInclude Include="http\Http.h">
+      <Filter>http</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

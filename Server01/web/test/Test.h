@@ -7,6 +7,7 @@
 #include <winsock2.h>
 #include <string>
 
+
 #include "../../route/RouteABS.h"
 
 namespace myTest
@@ -29,9 +30,9 @@ public:
         // fopen_s(&fp, fileaddr.c_str(), "rb");
 
         // fopen_s(&fp, "web//test//test.html", "rb");
-        // fopen_s(&fp, "web//login//login.html", "rb");
+        fopen_s(&fp, "web//login//login.html", "rb");
 
-        fopen_s(&fp, "web//test//button.html", "rb");
+        // fopen_s(&fp, "web//test//button.html", "rb");
 
         char buffer[1024];
         int bytesRead;

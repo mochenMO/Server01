@@ -15,9 +15,8 @@ class RouteABS
 {
 public:
 	virtual void dealRequest(myServer::SocketItem& clientSockItem, char* url, char* httpRequest, std::vector<void*>& publicRes) = 0;
-
 	virtual ~RouteABS() = 0 {};
-
+	
 	/*// 说明
 	* 以目前我的能力水平，既要实现用route统一管理，有要公共资源的共享，能想出以下3种方法
 	* (1) std::vector<void*>存任何资源，再类型转成想要的资源，优点是速度快，公共资源访问方便，缺点是要用户自记下各个下标对应的类型，即类型不安全。
