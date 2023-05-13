@@ -28,7 +28,8 @@ public:
         FILE* fp;
         // fopen_s(&fp, fileaddr.c_str(), "rb");
 
-        fopen_s(&fp, "web//test//test.html", "rb");
+        // fopen_s(&fp, "web//test//test.html", "rb");
+        fopen_s(&fp, "web//login//login.html", "rb");
 
         char buffer[1024];
         int bytesRead;
@@ -36,6 +37,9 @@ public:
         {
             send(clientSockItem.socket, buffer, bytesRead, 0);
         }
+
+        
+
         fclose(fp);
 	}
 };
