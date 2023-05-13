@@ -29,7 +29,9 @@ public:
         // fopen_s(&fp, fileaddr.c_str(), "rb");
 
         // fopen_s(&fp, "web//test//test.html", "rb");
-        fopen_s(&fp, "web//login//login.html", "rb");
+        // fopen_s(&fp, "web//login//login.html", "rb");
+
+        fopen_s(&fp, "web//test//button.html", "rb");
 
         char buffer[1024];
         int bytesRead;
@@ -38,9 +40,31 @@ public:
             send(clientSockItem.socket, buffer, bytesRead, 0);
         }
 
-        
-
         fclose(fp);
+
+
+
+
+        //char responseHeader2[] = "HTTP/1.1 200 OK\r\nContent-Type: text/css \r\n\r\n";  // 注意：http头部(\r\n\r\n) + html文件，这种形式才能生效，如果把html文件插入到头部中进行传输，则html会失效
+        //send(clientSockItem.socket, responseHeader2, sizeof(responseHeader2), 0);
+
+        //FILE* fp1;
+        //// fopen_s(&fp, fileaddr.c_str(), "rb");
+
+        //// fopen_s(&fp, "web//test//test.html", "rb");
+        //fopen_s(&fp1, "web//login//login.css", "rb");
+
+        //char buffer1[1024];
+        //int bytesRead1;
+        //while ((bytesRead1 = fread(buffer1, sizeof(char), sizeof(buffer1), fp1)) > 0)
+        //{
+        //    send(clientSockItem.socket, buffer1, bytesRead1, 0);
+        //}
+
+
+        //std::cout << "sdfdf" << std::endl;
+
+        //fclose(fp1);
 	}
 };
 
