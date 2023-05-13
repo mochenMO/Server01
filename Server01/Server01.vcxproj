@@ -144,7 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="http\Http.h" />
-    <ClInclude Include="Log\Log.h" />
+    <ClInclude Include="log\Log.h" />
     <ClInclude Include="route\Route.h" />
     <ClInclude Include="route\RouteABS.h" />
     <ClInclude Include="web\login\Login.h" />

@@ -4,9 +4,6 @@
     <Filter Include="server">
       <UniqueIdentifier>{566bfa08-0766-4b13-bd40-23f6a6e15435}</UniqueIdentifier>
     </Filter>
-    <Filter Include="log">
-      <UniqueIdentifier>{8370bd18-7d02-4ec5-a45e-38fb97727f33}</UniqueIdentifier>
-    </Filter>
     <Filter Include="route">
       <UniqueIdentifier>{e7c8ca0c-f257-4105-8b44-adf518711972}</UniqueIdentifier>
     </Filter>
@@ -15,6 +12,9 @@
     </Filter>
     <Filter Include="http">
       <UniqueIdentifier>{884720a1-94ff-4db2-bb40-8b1668b1890a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{acfa8d67-f327-49ef-8657-dd9aa2f1e7d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -30,9 +30,6 @@
     <ClInclude Include="route\RouteABS.h">
       <Filter>route</Filter>
     </ClInclude>
-    <ClInclude Include="Log\Log.h">
-      <Filter>log</Filter>
-    </ClInclude>
     <ClInclude Include="web\login\Login.h">
       <Filter>web</Filter>
     </ClInclude>
@@ -41,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="http\Http.h">
       <Filter>http</Filter>
+    </ClInclude>
+    <ClInclude Include="log\Log.h">
+      <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
