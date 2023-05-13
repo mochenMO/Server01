@@ -18,9 +18,6 @@
     <ClCompile Include="server\Server.h">
       <Filter>server</Filter>
     </ClCompile>
-    <ClCompile Include="web\test\Test.h">
-      <Filter>web</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +31,9 @@
       <Filter>log</Filter>
     </ClInclude>
     <ClInclude Include="web\login\Login.h">
+      <Filter>web</Filter>
+    </ClInclude>
+    <ClInclude Include="web\test\Test.h">
       <Filter>web</Filter>
     </ClInclude>
   </ItemGroup>
