@@ -41,7 +41,7 @@ public:
 	// 能进行移动操作吗？
 	// 怎么处理const class？
 
-	RouteABS* get_routeElement(const std::string & url) {
+	RouteABS* get_routeElement(const std::string& url) {
 		auto res = routeMap.find(url);
 		myLog::log(res, routeMap.end(), "error: myRoute::route::get_fileAddr()失败 ==> " + url + "不存在");
 		return res->second;  // res的第二个值存的是与该key值绑定的值

@@ -33,5 +33,8 @@
     <ClInclude Include="Log\log.h">
       <Filter>log</Filter>
     </ClInclude>
+    <ClInclude Include="web\login\Login.h">
+      <Filter>web</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

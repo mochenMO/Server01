@@ -22,6 +22,8 @@
 #include "server/Server.h"
 
 
+
+
 void RequestMainFunc(myServer::SocketItem& clientSockItem)
 {
     myRoute::Route route{};
@@ -29,30 +31,36 @@ void RequestMainFunc(myServer::SocketItem& clientSockItem)
     std::vector<void*> res(10, nullptr);
     //res[0] = clientsock;
 
-    char buf[1024] = { 0 };
-    int len = 0;
-    char url[1024] = { 0 };
+    char* buf = new char[10240]();     // 设置http请求的长度最大为10kb（用堆空间存储,要加()表示用0填充）
+    char* url = new char[10240]();     // 保存url信息
+    int len = 0;  // 接收recv的返回值
+    
 
     while (1) {   // 为什么顶部的页面栏一直在转圈圈？ 怎么设置顶部的页面栏的图标？
-
-
-
-        len = recv(clientSockItem.socket, buf, 1024, 0);
+        len = recv(clientSockItem.socket, buf, 10240, 0);   
         myLog::log(len, -1, "error: recv()失败 ==> clientsock:连接以停止");
-        // myLog::log(len, -1, "error: myRoute::route::get_fileAddr()失败 ==> " + "不存在");  // 为什么不行？？？？
-        printf("%s\n", buf);  // 输出get请求报
-
-        sscanf(buf, "GET %s HTTP/1.1", url);   // 用正则表达式获得文件路径
-        printf(" ==> url: %s\n", url);           // 输出url
+        buf[len + 1] = '\0';   // 注意：因为recv每次覆盖原数据不会在结尾加'\0'，所以要自己加上
+        sscanf(buf, "GET %s HTTP/1.1", url);   // 用正则表达式获得url，它每次会给url结尾加'\0'
 
 
-        myRoute::RouteABS* routeElement = route.get_routeElement(url);
-        routeElement->dealRequest(clientSockItem, url,buf, res);
+        std::cout << buf << std::endl;                         // 输出http请求报
+        std::cout << "==> len: " << len << std::endl;          // 输出http请求报的长度
+        std::cout << "==> url: " << url << std::endl;          // 输出url
+        std::cout << "==============================================" 
+                  << "============================================\n" << std::endl;  // 分割线便于参看输出
+
+        // 对url进行strstr处理，因为url是可以携带参数的？？？？？？？？？？？？
+
+        myRoute::RouteABS* routeElement = route.get_routeElement(url);   // 根据url搜索指定的路由
+        routeElement->dealRequest(clientSockItem, url,buf, res);         // 交给指定的路由处理
 
     }
 
 
-    // delete vector element ???????
+    delete[] url;
+    delete[] buf;
+
+    // vector 还没有销毁 ???????
 }
 
 

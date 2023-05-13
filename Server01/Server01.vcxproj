@@ -147,6 +147,7 @@
     <ClInclude Include="Log\log.h" />
     <ClInclude Include="route\Route.h" />
     <ClInclude Include="route\RouteABS.h" />
+    <ClInclude Include="web\login\Login.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
