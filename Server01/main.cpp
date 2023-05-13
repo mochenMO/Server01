@@ -5,6 +5,7 @@
 *  (2) js通信
 *  (3) 上传html,js,css,bmg,json
 *  (4) json解析
+*  (5) F12详细用法
 */
 
 
