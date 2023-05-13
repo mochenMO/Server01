@@ -13,9 +13,6 @@
     <Filter Include="http">
       <UniqueIdentifier>{884720a1-94ff-4db2-bb40-8b1668b1890a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="log">
-      <UniqueIdentifier>{acfa8d67-f327-49ef-8657-dd9aa2f1e7d2}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="server\Server.h">
@@ -38,9 +35,6 @@
     </ClInclude>
     <ClInclude Include="http\Http.h">
       <Filter>http</Filter>
-    </ClInclude>
-    <ClInclude Include="log\Log.h">
-      <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
