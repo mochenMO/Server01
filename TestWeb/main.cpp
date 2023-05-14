@@ -38,6 +38,8 @@ int main()
 	}
 	cout << "服务器已启动，等待连接中..." << endl;
 
+
+
 	// 不断接受客户端连接请求并处理请求 
 	while (true) {
 		// 接受客户端连接请求
@@ -48,6 +50,9 @@ int main()
 			WSACleanup();
 			return 1;
 		}
+
+		cout << "clientSocket: "  << clientSocket << endl; /////////
+
 		cout << "已连接客户端" << endl; // 循环接收客户端发来的数据 
 		char recvBuffer[4096] = {0};
 		iResult = recv(clientSocket, recvBuffer, sizeof(recvBuffer), 0);
@@ -67,12 +72,15 @@ int main()
 		size_t start = request.find(' ') + 1;
 		size_t end = request.find(' ', start);
 		string path = request.substr(start, end - start);
+
 		// 若是默认首页，重定向到index.html 
 		if (path == "/") {
 			path = "/login.html";
 		}
+
 		// 发送HTTP响应头 
 		string responseHeader = "HTTP/1.1 200 OK\r\n"
+			"Set-Cookie: name=value;expires=Mon, 21 Sep 2037 00:00:01 GMT\r\n"    // 设置cookie
 			"Content-Type: ";
 		string contentType;
 		if (path.find(".html") != string::npos || path.find(".htm") != string::npos) {
@@ -127,8 +135,9 @@ int main()
 
 		cout << "已发送HTTP响应：" << path << endl; // 关闭文件和socket 
 		file.close();
-		closesocket(clientSocket);
+		closesocket(clientSocket);  // 每次请求处理完后一定要销毁socket，否则浏览器会一直转圈圈，无法加载出页面
 	}
+
 
 	closesocket(listenSocket);
 	WSACleanup();
