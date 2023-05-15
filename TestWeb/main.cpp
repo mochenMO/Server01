@@ -80,7 +80,7 @@ int main()
 
 		// 发送HTTP响应头 
 		string responseHeader = "HTTP/1.1 200 OK\r\n"
-			"Set-Cookie: name=value;expires=Mon, 21 Sep 2037 00:00:01 GMT\r\n"    // 设置cookie
+			"Set-Cookie: name = value;expires=Mon, 21 Sep 2037 00:00:01 GMT\r\n"    // 设置cookie
 			"Content-Type: ";
 		string contentType;
 		if (path.find(".html") != string::npos || path.find(".htm") != string::npos) {
