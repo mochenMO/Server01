@@ -4,12 +4,14 @@
 #define _ROUTE_H_
 
 #include <unordered_map>
-#include "RouteABS.h"
-#include "../log/Log.h"
+#include <vector>
 // #include<hash_map>  // 已弃用
 
-
-#include "../web/test/Test.h"
+#include "RouteABS.h"
+#include "../log/Log.h"
+#include "../web/login/Login.h"
+#include "../http/Http.h"
+#include "../server/Server.h"
 
 namespace myRoute
 {
@@ -19,13 +21,13 @@ class Route
 {
 private:
 	std::unordered_map<std::string, RouteABS*> routeMap;   // 注意：RouteABS*是指针
-
 public:
 
 	Route() :routeMap() {
-		routeMap.insert({ "/", new myTest::Test });
+		routeMap.insert({ "/", new myLogin::Login });
+		routeMap.insert({ "/login", new myLogin::Login });
 	};
-
+	
 	~Route() {
 		for (auto itr = routeMap.begin(); itr != routeMap.end(); ++itr) {
 			if(itr->second != nullptr) {
@@ -41,24 +43,55 @@ public:
 	// 能进行移动操作吗？
 	// 怎么处理const class？
 
-	RouteABS* get_routeElement(const std::string& url) {
-		auto res = routeMap.find(url);
-		myLog::log(res, routeMap.end(), "error: myRoute::route::get_fileAddr()失败 ==> " + url + "不存在");
+	RouteABS* get_routeElement(const std::string& pageName) {
+		auto res = routeMap.find(pageName);
+		myLog::log(res, routeMap.end(), "error: myRoute::route::get_fileAddr()失败 ==> " + pageName + "不存在");	
 		return res->second;  // res的第二个值存的是与该key值绑定的值
 	}
 
-	void  set_routeElement(const std::string& url, RouteABS* routeElement) {
-		auto res = routeMap.find(url);
-		myLog::log(res, routeMap.end(), "error: myRoute::route::set_fileAddr()失败 ==> " + url + "不存在");
+	void  set_routeElement(const std::string& pageName, RouteABS* routeElement) {
+		auto res = routeMap.find(pageName);
+		myLog::log(res, routeMap.end(), "error: myRoute::route::set_fileAddr()失败 ==> " + pageName + "不存在");
 		// res->second = newFileAddr;  // res的第二个值存的是与该key值绑定的值
-		routeMap[url] = routeElement;
+		routeMap[pageName] = routeElement;
 	}
 
-	bool add_routeElement(const std::string & url, RouteABS* routeElement) {
-		auto res = routeMap.insert({ url, routeElement });
+	bool add_routeElement(const std::string& pageName, RouteABS* routeElement) {
+		auto res = routeMap.insert({ pageName, routeElement });
 		return res.second;    // res的第二个值是bool,表示是否成功
 	}
 
+	void distribute_route(myServer::SocketItem socketItem, char* httpRequest, std::vector<void*>& publicRes) 
+	{
+		char pageName[256] = { 0 };
+		RouteABS* pageRoute;
+		
+		// 获得pageName
+		myHttp::getPageName(httpRequest, pageName);
+		
+		// 分情况处理cookie，实现页面的隔离
+		char userName[128] = { 0 };
+		if (myHttp::findAttribute(httpRequest,"Cookie")== false) {   // 该页面没有Cookie
+			pageRoute = get_routeElement("/login");
+		}
+		else {   // 该页面有Cookie
+			myHttp::getValuebyCookie(httpRequest, "userName", userName);
+			if (strcmp(userName, "nulluser") == 0) {     // username==null，用户未登录
+				pageRoute = get_routeElement("/login");
+			}
+			else {  // 用户已登录
+				pageRoute = get_routeElement(pageName);
+			}
+			//else if (strcmp(pageName, "/login") == 0) {  // 用户已登录，但用户想要手动用url跳到登录页面
+			//	closesocket(socketItem.socket);
+			//	return;
+			//}
+		}
+
+		// 交由指定的页面进行处理
+		pageRoute->dealRequest(socketItem, httpRequest, publicRes);
+	}
+	
 };
 
 

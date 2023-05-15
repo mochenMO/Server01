@@ -38,7 +38,7 @@
 namespace myLog
 {
 	template<class T>
-	void log(T val1, T val2,const std::string& info) {   // 用string是因为它重载了+号运算符，便于字符串的连接
+	inline void log(T val1, T val2,const std::string& info) {   // 用string是因为它重载了+号运算符，便于字符串的连接
 		if (val1 == val2) {
 			std::cout << info << std::endl;
 			std::exit(-1);

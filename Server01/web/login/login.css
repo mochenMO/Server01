@@ -5,7 +5,7 @@
 } 
 
 body{
-    background: url(./res/wallpaper.jpg) no-repeat;
+    background: url(../login/res/wallpaper.jpg) no-repeat;  /* http会去掉../ */
     background-size: cover;
     background-attachment: fixed;
 }

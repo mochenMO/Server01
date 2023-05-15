@@ -14,7 +14,7 @@ namespace myRoute
 class RouteABS
 {
 public:
-	virtual void dealRequest(myServer::SocketItem& clientSockItem, char* url, char* httpRequest, std::vector<void*>& publicRes) = 0;
+	virtual void dealRequest(myServer::SocketItem& clientSockItem, char* httpRequest, std::vector<void*>& publicRes) = 0;
 	virtual ~RouteABS() = 0 {};
 	
 	/*// หตร๗

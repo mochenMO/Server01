@@ -30,9 +30,6 @@
     <ClInclude Include="route\RouteABS.h">
       <Filter>route</Filter>
     </ClInclude>
-    <ClInclude Include="web\login\Login.h">
-      <Filter>web</Filter>
-    </ClInclude>
     <ClInclude Include="web\test\Test.h">
       <Filter>web</Filter>
     </ClInclude>
@@ -41,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="log\Log.h">
       <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="web\login\Login.h">
+      <Filter>web</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

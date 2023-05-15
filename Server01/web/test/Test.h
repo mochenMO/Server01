@@ -23,7 +23,7 @@ public:
 	void dealRequest(myServer::SocketItem& clientSockItem, char* url, char* httpRequest, std::vector<void*>& publicRes) {
 
 
-        char responseHeader[] = "HTTP/1.1 200 OK\r\nContent-Type: text/html \r\n\r\n";  // 注意：http头部(\r\n\r\n) + html文件，这种形式才能生效，如果把html文件插入到头部中进行传输，则html会失效
+        char responseHeader[] = "HTTP / 1.1 200 OK\r\nContent-Type: text/html \r\n\r\n";  // 注意：http头部(\r\n\r\n) + html文件，这种形式才能生效，如果把html文件插入到头部中进行传输，则html会失效, // 字段名+冒号+空格+字段值 的格式
         send(clientSockItem.socket, responseHeader, sizeof(responseHeader), 0);
 
         FILE* fp;
@@ -77,3 +77,6 @@ public:
 
 
 #endif // ! _TEST_H_
+
+
+
