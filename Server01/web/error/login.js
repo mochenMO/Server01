@@ -11,13 +11,12 @@ submitBtn.addEventListener('click', function(e) {
 
   var xhr = new XMLHttpRequest(); // 创建一个新的 XHR 对象
   
-  xhr.open('POST', 'http://localhost:8888/login/login.json'); // 配置 XHR 对象
+  xhr.open('POST', 'http://localhost:8888/login.json'); // 配置 XHR 对象
   xhr.setRequestHeader('Content-Type', 'application/json'); // 声明请求头部类型 
 
   var userData = {
     username: usernameInput.value,
-    password: passwordInput.value,
-    "click":"login"
+    password: passwordInput.value
   };
 
   xhr.send(JSON.stringify(userData)); // 将 JavaScript 对象转换成 JSON 字符串并发送请求

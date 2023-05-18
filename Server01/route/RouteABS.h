@@ -1,10 +1,11 @@
 
-
+#pragma once
 #ifndef _ROUTEABS_H_
 #define _ROUTEABS_H_
 
 #include <vector>
 #include "../server/Server.h"
+#include "../http/Http.h"
 
 namespace myRoute
 { 
@@ -14,7 +15,7 @@ namespace myRoute
 class RouteABS
 {
 public:
-	virtual void dealRequest(myServer::SocketItem& clientSockItem, char* httpRequest, std::vector<void*>& publicRes) = 0;
+	virtual void dealRequest(myServer::SocketItem* clientSockItem, myHttp::HttpRequest& httpRequest, std::vector<void*>& publicRes) = 0;
 	virtual ~RouteABS() = 0 {};
 	
 	/*// หตร๗

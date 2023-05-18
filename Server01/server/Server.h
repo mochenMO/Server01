@@ -17,7 +17,7 @@
 #pragma comment(lib, "ws2_32.lib")
 
 #include "../log/Log.h"
-
+#include "../http/Http.h"
 
 
 
@@ -32,7 +32,56 @@ namespace myServer
 struct SocketItem  // 与c接口打交道时，不要无脑用封装性，如果这里用class在get和set是及其繁琐的
 {
     SOCKET socket;
-    struct sockaddr_in servaddr;
+    struct sockaddr_in servaddr; 
+
+
+    void SendhttpRequest(myHttp::HttpResponce& httpResponce, myHttp::HttpRequest& httpRequest) {
+        
+        httpResponce.CombinatHttpResponce();
+        std::string responseHeader = httpResponce.getHttpResponce();
+        send(socket, responseHeader.c_str(), responseHeader.length(), 0);
+        
+        if (httpRequest.getContentType() == "application/json") {
+            PosthttpRequest(httpResponce, httpRequest);
+        }
+        else {
+            std::string fileName = httpRequest.getPageName() + httpRequest.getFileName();
+            GethttpRequest(httpResponce, httpRequest);
+        }
+    }
+
+
+    void PosthttpRequest(myHttp::HttpResponce& httpResponce, myHttp::HttpRequest& httpRequest)
+    {
+        myJson::Json json = httpResponce.getJson();
+        std::string jsonValue = json.getJson();
+        send(socket, jsonValue.c_str(), jsonValue.length(), 0);
+        std::cout << "已发送json文件" << std::endl;
+    }
+
+    void GethttpRequest(myHttp::HttpResponce& httpResponce, myHttp::HttpRequest& httpRequest)
+    {
+        std::string fileName = "web" + httpRequest.getPageName() + httpRequest.getFileName();
+        std::ifstream file(fileName, std::ios::binary);
+        if (file.fail()) {
+            fileName = "web" + httpRequest.getPageName() + "/res" + httpRequest.getFileName();
+            file.open(fileName, std::ios::binary);   // image资源
+            if (file.fail()) {
+                std::cout << "读取文件失败: " << fileName << std::endl;
+                return;
+            }
+        }
+        
+        char buffer[4096];
+        while (!file.eof()) {
+            file.read(buffer, sizeof(buffer));
+            send(socket, buffer, file.gcount(), 0);
+        }
+
+        std::cout << "已发送: " << fileName << std::endl;
+    }
+
+
 };
 
 
