@@ -1,4 +1,3 @@
-
 #pragma once
 #ifndef _JSON_H_
 #define _JSON_H_
@@ -8,7 +7,6 @@
 
 namespace myJson
 {
-
 
 
 class Json
@@ -38,3 +36,6 @@ public:
 }
 
 #endif // !_JSON_H_
+
+
+

@@ -1,4 +1,3 @@
-
 #pragma once
 #ifndef _ROUTE_H_
 #define _ROUTE_H_
@@ -15,6 +14,8 @@
 
 #include "../web/login/Login.h"
 #include "../web/default/Default.h"
+
+
 
 namespace myRoute
 {
@@ -67,50 +68,6 @@ public:
 		return res.second;    // res的第二个值是bool,表示是否成功
 	}
 
-	//void distribute_route(myServer::SocketItem* socketItem, myHttp::HttpRequest& httpRequest, std::vector<void*>& publicRes)
-	//{
-	//	// char pageName[256] = { 0 };
-	//	RouteABS* pageRoute;
-
-	//	// 获得pageName
-	//	//myHttp::getPageName(httpRequest, pageName);
-	//	std::string pageName = httpRequest.getPageName();
-
-
-	//	// 分情况处理cookie，实现页面的隔离
-	//	//char userName[128] = { 0 };
-	//	
-	///*	auto *pageRoute1 = get_routeElement("/login");
-	//	auto *pageRoute2 = get_routeElement("/");
-
-	//	if (pageName != "/")
-	//		std::cout << pageName << std::endl;*/
-
-	//	auto* pageRoute3 = get_routeElement(pageName);
-
-	//	std::string userName;
-	//	if (httpRequest.findAttribute("Cookie") == false) {   // 该页面没有Cookie
-	//		pageRoute = get_routeElement("/login");
-	//	}
-	//	else {   // 该页面有Cookie
-	//		userName = httpRequest.getValuebyCookie("userName");
-	//		if (userName == "nulluser") {     // username==null，用户未登录
-	//			pageRoute = get_routeElement("/login");
-	//		}
-	//		else {  // 用户已登录
-	//			pageRoute = get_routeElement(pageName);
-	//		}
-	//		//else if (strcmp(pageName, "/login") == 0) {  // 用户已登录，但用户想要手动用url跳到登录页面
-	//		//	closesocket(socketItem.socket);
-	//		//	return;
-	//		//}
-	//	}
-
-	//	// 交由指定的页面进行处理
-	//	pageRoute->dealRequest(socketItem, httpRequest, publicRes);
-	//}
-
-
 	void distribute_route(myServer::SocketItem* socketItem, myHttp::HttpRequest& httpRequest, std::vector<void*>& publicRes)
 	{
 		
@@ -142,4 +99,7 @@ public:
 }
 
 #endif // !_ROUTE_H_
+
+
+
 
