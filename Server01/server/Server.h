@@ -39,7 +39,6 @@ struct SocketItem  // 与c接口打交道时，不要无脑用封装性，如果这里用class在get和s
             PosthttpRequest(httpResponce, httpRequest);
         }
         else {
-            std::string fileName = httpRequest.getPageName() + httpRequest.getFileName();
             GethttpRequest(httpResponce, httpRequest);
         }
     }

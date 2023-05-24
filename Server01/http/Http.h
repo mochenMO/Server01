@@ -69,6 +69,11 @@ public:
 		return url;
 	}
 
+	void setUrl(const char* url) {
+		strcpy(this->url, url);
+	}
+
+
 	const std::string getContentType()
 	{
 		std::string Suffix;
@@ -100,7 +105,7 @@ public:
 			return "/login";  // 只有一个"/"直接交给login页面处理
 		}
 		else {
-			for (int i = 1; url[i] != '/'; i++) {
+			for (int i = 1; url[i] != '/' && url[i] != '\0'; i++) {
 				if (url[i] == '.') {   // 说明说明是浏览器的文件请求如，http://local:8888/favicon.ico favicon并不是pageName
 					return "/default";  // 交由default页面处理
 				}
@@ -116,7 +121,7 @@ public:
 	{
 		std::string fileName;
 		char* c = strstr(url, ".");
-		if (c == nullptr) {   // url中没有显示的指定文件，则默认传pageName.html
+		if (c == nullptr) {   // url中没有显示的指定文件，则默认传pageName.html	
 			return getPageName() + ".html";
 		}
 		else {
@@ -202,7 +207,7 @@ public:
 		responseHeader += "Content-Type: " + contentType + "\r\n";
 	
 		if (cookie.empty() == false) {
-			responseHeader += "Set-Cookie: " + cookie + "expires=Mon, 21 Sep 2037 00:00:01 GMT\r\n";
+			responseHeader += "Set-Cookie: " + cookie + "path=/;expires=Mon, 21 Sep 2037 00:00:01 GMT\r\n";
 		}
 
 		responseHeader += "\r\n";

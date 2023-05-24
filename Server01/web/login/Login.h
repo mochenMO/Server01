@@ -22,14 +22,14 @@ public:
 
         if (httpRequest.getValuebyPost("click") == "login")   // 点击了登录按钮
         {   
-            std::string userName = httpRequest.getValuebyPost("userName");
-            std::string passWord = httpRequest.getValuebyPost("passWord");
+            std::string userName = httpRequest.getValuebyPost("username");
+            std::string passWord = httpRequest.getValuebyPost("password");
             if (userName == "admin" && passWord == "qwert") {    // 要用到SQL Server ？？？？？？
-                httpResponce.addCookie("userName", userName);
+                httpResponce.addCookie("username", userName);
             }
         }
         else if (httpRequest.findAttribute("Cookie") == false) {  // 没有cookie
-            httpResponce.addCookie("userName", "nulluser");
+            httpResponce.addCookie("username", "nulluser");
         }
 
         clientSockItem->SendhttpRequest(httpResponce, httpRequest);

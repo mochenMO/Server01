@@ -21,14 +21,10 @@ private:
 public:
     void dealRequest(myServer::SocketItem* clientSockItem, myHttp::HttpRequest& httpRequest, std::vector<void*>& publicRes)
     {
-
-
-
+        myHttp::HttpRequest httpRequest1("GET /error/error.html HTTP/1.1\r\n\r\n");
         myHttp::HttpResponce httpResponce(httpRequest);
-        clientSockItem->SendhttpRequest(httpResponce, httpRequest);
+        clientSockItem->SendhttpRequest(httpResponce, httpRequest1);
     }
-
-
 };
 
 

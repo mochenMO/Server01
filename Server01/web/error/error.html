@@ -2,18 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../login/login.css">
-    <title>Document</title>
+    <title>404 error</title>
+    <link rel="stylesheet" href="../error/error.css">
 </head>
 <body>
-    <form aution="" class="login"> <!-- aution还没写？？？？？ -->
-        <p>登录</p>
-        <input type="text" placeholder="用户名" id="userName">
-        <input type="password" placeholder="密码" id="passWord">
-        <input type="submit" id="myButton" class="btn" value="登 录"> <!-- 为什么不用button？？？？？ -->
-    </form>
-    <script src="../login/login.js"></script>  <!-- 放在最后body标记之前，那样会加载更快并避免阻塞渲染页面。 -->
+    <div id="error-page">
+        <div class="content">
+            <h1 data-text="404">404</h1>
+            <h4 data-text="Opps! Page not found">Opps! Page not found</h4>
+            <p>Sorry,the page your're looking for doesn't exist.if you think somethings is broken,
+            report a problem</p>
+            <div class="btns">
+                <a href="#">return home</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

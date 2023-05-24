@@ -54,5 +54,8 @@
     <ClInclude Include="web\error\Error.h">
       <Filter>web</Filter>
     </ClInclude>
+    <ClInclude Include="web\index\Index.h">
+      <Filter>web</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
