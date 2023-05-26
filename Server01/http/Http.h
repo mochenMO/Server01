@@ -73,6 +73,10 @@ public:
 		strcpy(this->url, url);
 	}
 
+	//bool isFile() {
+	//	char* c = std::strstr(url, ".");
+	//	return c != nullptr ? true : false;
+	//}
 
 	const std::string getContentType()
 	{
@@ -96,43 +100,74 @@ public:
 		return res->second;  // res的第二个值存的是与该key值绑定的值
 	}
 
+	//std::string getPageName()
+	//{
+	//	std::string pageName;
+	//	pageName += '/';
+	//	char* c = strstr(url + 1, "/");  // 尝试寻找第二个"/"的位置
+	//	if (c == nullptr) {
+	//		return "/";       // 只有一个"/"
+	//	}
+	//	else {
+	//		for (int i = 1; url[i] != '/' && url[i] != '\0'; i++) {
+	//			pageName += url[i];
+	//		}
+	//	}
+	//	return pageName;
+	//}
+
+
 	std::string getPageName()
 	{
 		std::string pageName;
-		pageName += '/';
-		char* c = strstr(url + 1, "/");  // 尝试寻找第二个"/"的位置
-		if (c == nullptr && url[1] == '\0') {
-			return "/login";  // 只有一个"/"直接交给login页面处理
+		for (char* c = url + 1; *c != '\0' && *c != '/' && *c != '?'; ++c) {
+			pageName += *c;
+		}
+		if (strstr(pageName.c_str(), ".") == nullptr) {
+			return  "/" + pageName;
 		}
 		else {
-			for (int i = 1; url[i] != '/' && url[i] != '\0'; i++) {
-				if (url[i] == '.') {   // 说明说明是浏览器的文件请求如，http://local:8888/favicon.ico favicon并不是pageName
-					return "/default";  // 交由default页面处理
-				}
-				else {
-					pageName += url[i];
-				}
-			}
+			return "";
 		}
-		return pageName;
 	}
+
+
+	//std::string getFileName()
+	//{
+	//	std::string fileName;
+	//	char* c = strstr(url, ".");
+	//	if (c == nullptr) {   // url中没有显示的指定文件，则默认传pageName.html	
+	//		return getPageName() + ".html";
+	//	}
+	//	else {
+	//		while (*c != '/')
+	//			--c;  // 从'.'移到'/'的位置
+	//		++c;
+	//		for (; *c != '?' && *c != '\0' && *c != '/'; ++c)
+	//			fileName += *c;
+	//		return "/" + fileName;   // 文件名和PageName一样由'/'开头
+	//	}
+	//}
 
 	std::string getFileName()
 	{
 		std::string fileName;
 		char* c = strstr(url, ".");
-		if (c == nullptr) {   // url中没有显示的指定文件，则默认传pageName.html	
+		if (c == nullptr) {
 			return getPageName() + ".html";
 		}
 		else {
-			while (*c != '/')
-				--c;  // 从'.'移到'/'的位置
-			++c;
-			for (; *c != '?' && *c != '\0' && *c != '/'; ++c)
+			while (*c != '/') 
+				--c;
+			for (++c; *c != '\0' && *c != '/' && *c != '?'; ++c) {
 				fileName += *c;
-			return "/" + fileName;   // 文件名和PageName一样由'/'开头
+			}
+			return "/" + fileName;
 		}
 	}
+
+
+
 
 	std::string getValuebyCookie(const char* attributeName) {
 		std::string resValue;
@@ -174,21 +209,22 @@ private:
 	std::string responseHeader;
 	std::string cookie;
 	std::string contentType;
+	std::string pageName;
+	std::string fileName;
 	myJson::Json json;
 	bool isPrepared = false;
 public:
 	HttpResponce(HttpRequest& httpRequest)
-		:responseHeader("HTTP/1.1 200 OK\r\n"), contentType(httpRequest.getContentType())
+		:responseHeader("HTTP/1.1 200 OK\r\n"), 
+		contentType(httpRequest.getContentType()),
+		pageName(httpRequest.getPageName()),
+		fileName(httpRequest.getFileName())
 	{}
 
 	~HttpResponce() = default;
 
 	std::string& getHttpResponce() {
 		return responseHeader;
-	}
-
-	std::string& getContentType() {
-		return contentType;
 	}
 
 	myJson::Json& getJson() {
@@ -217,6 +253,29 @@ public:
 		cookie += attributeName + "=" + strValue + ";";
 	}
 
+	void setContentType(std::string contentType) {
+		this->contentType = contentType;
+	}
+
+	std::string& getContentType() {
+		return contentType;
+	}
+
+	void setPageName(std::string pageName) {
+		this->pageName = pageName;
+	}
+
+	std::string& getPageName() {
+		return pageName;
+	}
+
+	void setFileName(std::string fileName) {
+		this->fileName = fileName;
+	}
+
+	std::string& getFileName() {
+		return fileName;
+	}
 };
 
 

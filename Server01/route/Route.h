@@ -29,10 +29,11 @@ private:
 public:
 
 	Route() :routeMap() {
-		routeMap.insert({ "/default", new myDefault::Default });
+		routeMap.insert({ "", new myDefault::Default });
 		routeMap.insert({ "/login", new myLogin::Login });
-		routeMap.insert({ "/error", new myError::Error });
 		routeMap.insert({ "/index", new myIndex::Index });
+		routeMap.insert({ "/error", new myError::Error });
+		
 	};
 	
 	~Route() {
@@ -71,37 +72,11 @@ public:
 		return res.second;    // res的第二个值是bool,表示是否成功
 	}
 
-	//void distribute_route(myServer::SocketItem* socketItem, myHttp::HttpRequest& httpRequest, std::vector<void*>& publicRes)
-	//{
-	//	
-	//	RouteABS* pageRoute;
-	//	// 获得pageName
-	//	std::string pageName = httpRequest.getPageName();
-
-	//	if (httpRequest.findAttribute("Cookie") == false) {   // 该页面没有Cookie,即没有初始化
-	//		pageRoute = get_routeElement("/login");
-	//	}
-	//	else {   // 该页面有Cookie
-	//		if (httpRequest.getValuebyCookie("username") == "nulluser") {   // username==nulluser，用户未登录
-	//			pageRoute = get_routeElement("/login");
-	//		}
-	//		else {  // 用户已登录 
-	//			pageRoute = get_routeElement(pageName);
-	//		}
-	//	}
-	//	// 交由指定的页面进行处理
-	//	pageRoute->dealRequest(socketItem, httpRequest, publicRes);
-	//}
-
-
-
 	void distribute_route(myServer::SocketItem* socketItem, myHttp::HttpRequest& httpRequest, std::vector<void*>& publicRes)
 	{
-
 		RouteABS* pageRoute;
 		// 获得pageName
 		std::string pageName = httpRequest.getPageName();
-
 		if (routeMap.find(pageName) == routeMap.end()) {
 			pageRoute = get_routeElement("/error");    // 要跳转的页面不存在直接跳转到error页面
 		}
@@ -110,8 +85,8 @@ public:
 				pageRoute = get_routeElement("/login");
 			}
 			else {   // 该页面有Cookie
-				if (httpRequest.getValuebyCookie("username") == "nulluser") {   // username==nulluser，用户未登录
-					pageRoute = get_routeElement("/login");
+				if (httpRequest.getValuebyCookie("username") == "nulluser" && pageName != "/login") {   // username==nulluser，用户未登录
+					pageRoute = get_routeElement("/error");
 				}
 				else {  // 用户已登录 
 					pageRoute = get_routeElement(pageName);
@@ -121,6 +96,8 @@ public:
 		// 交由指定的页面进行处理
 		pageRoute->dealRequest(socketItem, httpRequest, publicRes);
 	}
+
+
 
 
 };

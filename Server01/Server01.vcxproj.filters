@@ -13,11 +13,11 @@
     <Filter Include="http">
       <UniqueIdentifier>{884720a1-94ff-4db2-bb40-8b1668b1890a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="log">
-      <UniqueIdentifier>{9da05684-e46d-48b3-994c-a6ad0801b7c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="json">
       <UniqueIdentifier>{4af4ac61-2248-4448-b72d-812de9b53a45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{9da05684-e46d-48b3-994c-a6ad0801b7c1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -29,22 +29,24 @@ struct SocketItem  // 与c接口打交道时，不要无脑用封装性，如果这里用class在get和s
     struct sockaddr_in servaddr; 
 
 
-    void SendhttpRequest(myHttp::HttpResponce& httpResponce, myHttp::HttpRequest& httpRequest) {
-        
+    void SendhttpRequest(myHttp::HttpResponce& httpResponce) {
         httpResponce.CombinatHttpResponce();
         std::string responseHeader = httpResponce.getHttpResponce();
+        
+        // std::cout << responseHeader << std::endl;
+        
         send(socket, responseHeader.c_str(), responseHeader.length(), 0);
         
-        if (httpRequest.getContentType() == "application/json") {
-            PosthttpRequest(httpResponce, httpRequest);
+        if (httpResponce.getContentType() == "application/json") {
+            PosthttpRequest(httpResponce);
         }
         else {
-            GethttpRequest(httpResponce, httpRequest);
+            GethttpRequest(httpResponce);
         }
     }
 
 
-    void PosthttpRequest(myHttp::HttpResponce& httpResponce, myHttp::HttpRequest& httpRequest)
+    void PosthttpRequest(myHttp::HttpResponce& httpResponce)
     {
         myJson::Json json = httpResponce.getJson();
         std::string jsonValue = json.getJson();
@@ -52,12 +54,12 @@ struct SocketItem  // 与c接口打交道时，不要无脑用封装性，如果这里用class在get和s
         std::cout << "已发送json文件" << std::endl;
     }
 
-    void GethttpRequest(myHttp::HttpResponce& httpResponce, myHttp::HttpRequest& httpRequest)
+    void GethttpRequest(myHttp::HttpResponce& httpResponce)
     {
-        std::string fileName = "web" + httpRequest.getPageName() + httpRequest.getFileName();
+        std::string fileName = "web" + httpResponce.getPageName() + httpResponce.getFileName();
         std::ifstream file(fileName, std::ios::binary);
         if (file.fail()) {
-            fileName = "web" + httpRequest.getPageName() + "/res" + httpRequest.getFileName();
+            fileName = "web" + httpResponce.getPageName() + "/res" + httpResponce.getFileName();
             file.open(fileName, std::ios::binary);   // image资源
             if (file.fail()) {
                 std::cout << "读取文件失败: " << fileName << std::endl;

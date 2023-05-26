@@ -20,7 +20,8 @@ public:
     void dealRequest(myServer::SocketItem* clientSockItem, myHttp::HttpRequest& httpRequest, std::vector<void*>& publicRes)
     {
         myHttp::HttpResponce httpResponce(httpRequest);
-        clientSockItem->SendhttpRequest(httpResponce, httpRequest);
+        httpResponce.setPageName("/default");
+        clientSockItem->SendhttpRequest(httpResponce);
     }
 
 

@@ -25,9 +25,12 @@ submitBtn.addEventListener('click', function(e) {
   xhr.onreadystatechange = function() { // 绑定回调函数
     if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
       console.log("登录成功！");
+      //location.href="../index/index.html";
     }
     else {
       console.log("出错了，请重试！")
     }
   };
 });
+
+

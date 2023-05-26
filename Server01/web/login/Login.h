@@ -32,7 +32,7 @@ public:
             httpResponce.addCookie("username", "nulluser");
         }
 
-        clientSockItem->SendhttpRequest(httpResponce, httpRequest);
+        clientSockItem->SendhttpRequest(httpResponce);
     }
 
 
