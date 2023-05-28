@@ -33,7 +33,7 @@ struct SocketItem  // 与c接口打交道时，不要无脑用封装性，如果这里用class在get和s
         httpResponce.CombinatHttpResponce();
         std::string responseHeader = httpResponce.getHttpResponce();
         
-        std::cout << responseHeader << std::endl;
+        // std::cout << responseHeader << std::endl;
         
         send(socket, responseHeader.c_str(), responseHeader.length(), 0);
         
