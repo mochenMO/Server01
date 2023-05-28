@@ -33,8 +33,8 @@ static std::unordered_map<std::string, std::string> contentType = {
 	{"png", "image/png"},
 	{"bmp", "image/bmp"},
 	{"ico", "image/x-icon"},
-	{"json","application/json"} };    // 压缩格式？？？
-
+	{"json","application/json"},    // 压缩格式？？？
+	{"ttf","application/x-font-ttf"} };    // 压缩格式？？？
 
 class HttpRequest
 {

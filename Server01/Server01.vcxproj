@@ -149,6 +149,7 @@
     <ClInclude Include="route\Route.h" />
     <ClInclude Include="route\RouteABS.h" />
     <ClInclude Include="sql\MySql.h" />
+    <ClInclude Include="tool\Tool.h" />
     <ClInclude Include="web\default\Default.h" />
     <ClInclude Include="web\error\Error.h" />
     <ClInclude Include="web\index\Index.h" />

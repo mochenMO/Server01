@@ -26,9 +26,10 @@
 
 void RequestMainFunc(myServer::SocketItem* clientSockItem, myRoute::Route& route, std::vector<void*>& res)
 {
-    char *recvBuffer = new char[4096]();   // 加()表示用0填充
-    int len = recv(clientSockItem->socket, recvBuffer, 4096, 0);
+    char *recvBuffer = new char[10240]();   // 加()表示用0填充
+    int len = recv(clientSockItem->socket, recvBuffer, 10239, 0);
     std::cout << recvBuffer << std::endl;
+    
 
     myHttp::HttpRequest httpRequest(recvBuffer);
 
@@ -57,13 +58,6 @@ int main()
 
     MySql::SqlObject sqlObject("mytest", "mo", "qwert");
     res[0] = &sqlObject;
-
-    MySql::SqlObject* sqlObject1 =(MySql::SqlObject*)res[0];
-
-    MySql::SqlData data(3);
-    sqlObject1->select_sql("select * FRom user_tb", data);
-
-    data.printData();
 
     while (1) {
         // myServer::SocketItem clientItem01 = server.accept_server();  // 为什么顶部的页面栏一直在转圈圈？ 怎么设置顶部的页面栏的图标？

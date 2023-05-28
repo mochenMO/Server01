@@ -5,6 +5,10 @@
 #include <string>
 
 #include "../../route/RouteABS.h"
+#include "../../sql/MySql.h"
+#include "../../tool/Tool.h"
+
+using namespace myTool;
 
 
 namespace myLogin
@@ -20,11 +24,20 @@ public:
     {
         myHttp::HttpResponce httpResponce(httpRequest);
 
-        if (httpRequest.getValuebyPost("click") == "login")   // 点击了登录按钮
+        if (httpRequest.getValuebyPost("click") == "login" && httpRequest.findAttribute("Cookie") == true)   // 点击了登录按钮
         {   
             std::string userName = httpRequest.getValuebyPost("username");
             std::string passWord = httpRequest.getValuebyPost("password");
-            if (userName == "admin" && passWord == "qwert") {    // 要用到SQL Server ？？？？？？
+            
+
+            std::string commend = "select * from user_tb where username='" + userName + "'";
+            MySql::SqlObject* sqlObject = (MySql::SqlObject*)publicRes[0];
+            MySql::SqlData data(3);
+            bool res = sqlObject->select_sql(commend.c_str(), data);
+            
+            //printf("%s", data[2].data);
+
+            if (res == true && passWord == data[2].data && userName.empty() == false) {    // 要用到SQL Server ？？？？？？
                 httpResponce.addCookie("username", userName);
             }
         }

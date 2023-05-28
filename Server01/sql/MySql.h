@@ -17,6 +17,14 @@
 
 
 
+/*// ÎÊÌâ
+*   1.ÄÚ´æÐ¹Â©
+* 
+* 
+* 
+*/
+
+
 namespace MySql
 {
 
@@ -33,17 +41,27 @@ public:
     SqlData(int _col, int _row)
         :col(_col),
         row(_row),
-        data(new Data[col * row]())
-    {};
+        data(nullptr)// new Data[col * row]()
+    {
+        data = (Data*)malloc(col * row * sizeof(Data));
+    
+    };
 
     SqlData(int _col)
         :col(_col),
         row(20),
-        data(new Data[col * row]())
-    {};
+        data(nullptr)//new Data[col * row]()
+    {
+        data = (Data*)malloc(col * row * sizeof(Data));
+    
+    };
 
     ~SqlData() {
-        delete[] data;
+        if (data != nullptr) {
+            // delete[] data;
+            free(data);
+            data = nullptr;
+        }
     }
     
     Data& getDataByRow(int _row)
@@ -158,7 +176,7 @@ public:
             for(int i = 0; i < data.getCol(); i++){
                 int k = i + j * data.getCol();
                 SQLGetData(stmt, i+1, SQL_C_CHAR, data[k].data, 200, &data[k].dataLen);
-                printf("%s \n", data[k].data);
+                //printf("%s \n", data[k].data);
             }
             j++;
             

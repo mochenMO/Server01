@@ -22,6 +22,9 @@
     <Filter Include="sql">
       <UniqueIdentifier>{bf8d843e-4f07-4c85-851c-843b7d33dfac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tool">
+      <UniqueIdentifier>{b26b8961-82c2-4b7b-bbba-17dfc9d4f10c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="server\Server.h">
@@ -62,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="sql\MySql.h">
       <Filter>sql</Filter>
+    </ClInclude>
+    <ClInclude Include="tool\Tool.h">
+      <Filter>tool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
