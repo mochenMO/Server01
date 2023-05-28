@@ -16,11 +16,12 @@
 #include <string>
 #include <string.h>
 #include <vector>
+// #include <msdasql.h>
 
 #include "route/Route.h"
 #include "server/Server.h"
 #include "http/Http.h"
-
+#include "sql/MySql.h"
 
 
 void RequestMainFunc(myServer::SocketItem* clientSockItem, myRoute::Route& route, std::vector<void*>& res)
@@ -36,7 +37,7 @@ void RequestMainFunc(myServer::SocketItem* clientSockItem, myRoute::Route& route
 
    
     closesocket(clientSockItem->socket);
-    delete recvBuffer;
+    delete[] recvBuffer;
     delete clientSockItem;
     std::cout << "请求处理完毕，连接已断开" << std::endl;
     std::cout << "==========================================\n" << std::endl;
@@ -52,6 +53,17 @@ int main()
 
     myRoute::Route route{};
     std::vector<void*> res(10, nullptr);
+
+
+    MySql::SqlObject sqlObject("mytest", "mo", "qwert");
+    res[0] = &sqlObject;
+
+    MySql::SqlObject* sqlObject1 =(MySql::SqlObject*)res[0];
+
+    MySql::SqlData data(3);
+    sqlObject1->select_sql("select * FRom user_tb", data);
+
+    data.printData();
 
     while (1) {
         // myServer::SocketItem clientItem01 = server.accept_server();  // 为什么顶部的页面栏一直在转圈圈？ 怎么设置顶部的页面栏的图标？
