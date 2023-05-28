@@ -65,6 +65,11 @@ public:
 		delete[] url;
 	}
 
+
+	const char* getHttpRequest(){
+		return httpRequest;
+	}
+
 	const char* getUrl() {
 		return url;
 	}
@@ -199,6 +204,7 @@ public:
 		char* c = strstr(httpRequest, attributeName);
 		return c != nullptr ? true : false;
 	}
+
 };
 
 

@@ -201,8 +201,8 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     width: 83.4%; 
     height: 50px; 
-    color: red;
-    border: 1px solid red;
+    /* color: red; */
+    /* border: 1px solid red; */
 
     
     border-radius:15px;
@@ -221,9 +221,9 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     width: 70%; 
     height: 92%;
-    color: red;
+    /* color: red; */
  
-    border: 1px solid red;
+    /* border: 1px solid red; */
     
     border-radius:15px;
     background-color: #fff;
@@ -242,9 +242,9 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     width: 12.9%; 
     height: 92%;
-    color: red;
+    /* color: red; */
 
-    border: 1px solid red;
+    /* border: 1px solid red; */
     
     border-radius:15px;
     background-color: #fff;
@@ -267,9 +267,9 @@
 
     width: 90%;
     height: 35px;
-    color: red;
+    /* color: red; */
 
-    border: 1px solid red;
+    border: 1px solid black;
     
 
     margin-top: 6px;
@@ -287,7 +287,7 @@
     height: 20px;
     margin: 0 auto;
 
-    border: 1px solid red;
+    /* border: 1px solid red; */
     border-radius:5px;
 
     
@@ -319,4 +319,15 @@
 
     position: absolute;
     left: 30%;
+}
+
+
+#box2 img {
+    width: 40%;
+    height: auto;
+    margin: 0 auto;
+    
+    position: absolute;
+    left:30%;
+    top:5%;
 }

@@ -25,6 +25,9 @@
     <Filter Include="tool">
       <UniqueIdentifier>{b26b8961-82c2-4b7b-bbba-17dfc9d4f10c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imgAlg">
+      <UniqueIdentifier>{b044229c-fba2-464c-858b-bd9ef96fa52c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="server\Server.h">
@@ -68,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="tool\Tool.h">
       <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="imgAlg\DealImage02.h">
+      <Filter>imgAlg</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

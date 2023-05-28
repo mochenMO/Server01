@@ -69,9 +69,6 @@ int main()
         RequestMainFunc(sockItem, route, res);
     }
 
-    
-    
-
 
     return 0;
 }

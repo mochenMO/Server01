@@ -123,7 +123,7 @@ document.getElementById("run").addEventListener("click", () => {
         // console.log(myInputText.value);
         // console.log(minBoxArr[i]); 
     }
-    requestData["length"] = len;
+    requestData["length"] = len.toString();
 
     console.log(requestData);   /// 
 
@@ -134,6 +134,9 @@ document.getElementById("run").addEventListener("click", () => {
     xhr.setRequestHeader('Content-Type', 'application/json'); // 声明请求头部类型 
     xhr.send(JSON.stringify(requestData)); // 将 JavaScript 对象转换成 JSON 字符串并发送请求
 
+
+    let box2Img = document.querySelector("#box2 img");
+    box2Img.src = "../index/res/testimg1_t.bmp";
 });
 
 
