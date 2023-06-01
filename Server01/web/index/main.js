@@ -1,4 +1,16 @@
 
+/*// 问题
+* 1.box2鼠标边界问题暂时没有解决 ??
+* 2.下载功能未完全实现，Base64格式转换 ？？？
+* 3.reset无法改图片位置和大小？？？？？？？？
+*
+*/
+
+
+
+
+
+
 
 function info(id, val) {
     this.id = id;
@@ -83,11 +95,14 @@ function AddButtonEvent() {
 }
 
 
-document.getElementById("run").addEventListener("click", () => {
+let previousSrc = document.querySelector("#box2 img").src;
+
+document.getElementById("btn_run").addEventListener("click", () => {
    
     let requestData = {
         "length": "0",
-        "Data": []
+        "Data": [],
+        "imgName":""    /////////////
     }
 
     let len = 0;
@@ -125,8 +140,12 @@ document.getElementById("run").addEventListener("click", () => {
     }
     requestData["length"] = len.toString();
 
-    console.log(requestData);   /// 
+    let box2Img = document.querySelector("#box2 img");
 
+    let filename = previousSrc.substring(previousSrc.lastIndexOf('/')); // 获取文件名
+    requestData["imgName"] =filename;
+
+    console.log(requestData);
 
     // 把数据发给服务器
     let xhr = new XMLHttpRequest(); // 创建一个新的 XHR 对象
@@ -135,14 +154,207 @@ document.getElementById("run").addEventListener("click", () => {
     xhr.send(JSON.stringify(requestData)); // 将 JavaScript 对象转换成 JSON 字符串并发送请求
 
 
-    let box2Img = document.querySelector("#box2 img");
-    box2Img.src = "../index/res/testimg1_t.bmp";
+
+    // let xhr2 = new XMLHttpRequest(); // 创建一个新的 XHR 对象
+    // xhr2.open('GET', 'http://localhost:8888/index/testimg1_t.bmp'); // 配置 XHR 对象
+    // xhr2.setRequestHeader('Content-Type', 'image/bmp'); // 声明请求头部类型 
+    // xhr2.send(JSON.stringify(requestData)); // 将 JavaScript 对象转换成 JSON 字符串并发送请求
+
+    // previousSrc = box2Img.src;  // 保存处理之间前的图片，用于还原    ////////////////
+
+
+    
+
+    box2Img.src = "../index/res/testimg1_t.bmp" + "?" + new Date().getTime();
+
+    // box2Img.style.width="40%";   // 无法改位置和大小？？？？？？？？
+    // box2Img.style.left="30%";
+    // box2Img.style.top='5%';
+});
+
+
+const btn = document.getElementById("btn_add");
+const selectedImage = document.querySelector("#box2 img");
+
+btn.addEventListener("click", function() {
+    const input = document.createElement('input');
+    input.type = 'file';
+
+    input.onchange = e => { 
+        const file = e.target.files[0];
+        if (!file.type.startsWith('image/')){ return }
+
+        const reader = new FileReader();
+        reader.onload = e => {
+            selectedImage.src = e.target.result;
+        }
+        reader.readAsDataURL(file); 
+    }
+    input.click()
+});
+
+
+/*
+const btn = document.getElementById("btn_add");
+const selectedImage = document.querySelector("#box2 img");
+
+btn.addEventListener("click", function() {
+    const input = document.createElement('input');
+    input.type = 'file';
+
+    input.onchange = e => { 
+        const file = e.target.files[0];  // 获得上传得文件列表FileList对象中的第一个文件
+        if (!file.type.startsWith('image/')){ 
+            return;
+        }
+
+        const reader = new FileReader();   // 创建文件阅读器，用于格式转换
+        let tempSrc;
+        reader.onload = e => {    // 添加onload事件，表示当资源加载完成后自动触发
+            tempSrc = e.target.result;  // 获得格式转换后文件的url
+
+            let canvas = document.createElement("canvas"); 
+            const image = new Image();
+
+            image.onload = function() {
+                canvas.width = image.width; 
+                canvas.height = image.height;  
+                canvas.getContext("2d").drawImage(image, 0, 0);  
+
+                tempSrc = canvas.toDataURL('image/bmp');
+                selectedImage.src = tempSrc;
+            };
+            image.src = tempSrc;
+        }
+        reader.readAsDataURL(file);     // 转成Base64编码格式并生成url，结果会自动存在 e.target.result中
+    }
+
+    input.click();  // 打开文件选择对话框
+});
+ */
+
+document.getElementById("btn_reset").addEventListener("click", function() {
+    // 改图片
+    // 改缩放的比例
+    // 改位置
+
+    selectedImage.src = previousSrc;
+});
+
+let imgs = ["testimg1.bmp","testimg2.bmp","testimg3.bmp","testimg4.bmp"];
+let num = 1;
+document.getElementById("btn_exchange").addEventListener("click", function() {
+    
+    if(num == 4){
+        num -= 4;
+    }
+    selectedImage.src ="../index/res/" + imgs[num%4];
+    previousSrc = selectedImage.src;
+    num++;
 });
 
 
 
 
+document.getElementById("btn_downLoad").addEventListener("click", function() {
 
+  const link = document.createElement('a');
+
+  link.href = selectedImage.src;
+  // 给这个下载的链接添加 "下载" 属性和文件名称
+  link.download = selectedImage.src + ".bmp";
+
+  // 插入到 DOM 中来触发下载
+  document.body.appendChild(link);
+
+  // 触发链接的点击事件去执行下载
+  link.click();
+
+  // 将链接从 DOM 中移除
+  document.body.removeChild(link);
+});
+
+
+// ================================================================================================
+
+
+let container = document.querySelector('#box2');
+let image = container.querySelector('#box2 img');
+
+let currentScale = 1;         // 当前比例1为正常
+let minScale = 0.3;           // 最小缩放比例
+let currentTranslateX = 0;
+let currentTranslateY = 0;
+
+// 图片缩放和移动的操作函数
+function updateTransform() {
+    let transformCSS =
+      `
+  translate(${currentTranslateX}px, ${currentTranslateY}px)     
+  scale(${currentScale})
+`;
+    image.style.transform = transformCSS;
+    /*
+    * 1.模板字符串用反引号``括起来，在内部可以用 ${变量名} 这种形式直接插入变量。
+    * 2.translate()位移变换函数，一个重载版本为translate(dx,dy)。
+    * 3.scale()缩放变换函数,一个重载版本为scale(n),n=1时表示不缩放。
+    */
+}
+
+container.addEventListener('wheel', (event) =>{
+    event.preventDefault();   
+});
+
+
+// 图片缩放的事件函数
+image.addEventListener('wheel', (event) => {
+    event.preventDefault();      // 阻止默认的滚轮事件，即避免页面滚动或缩放。
+    image.style.transitionDuration = "0.3s";
+
+
+    let delta = Math.sign(event.deltaY);    // 判断滚轮滚动的方向，大于0是向上滚动，小于0是向下滚动，Math.sign()是判断正负用的
+    currentScale -= delta * 0.1;    // 每次缩放的比例为0.1
+    currentScale = Math.max(currentScale, minScale);    // 设置最小缩放比例
+
+    updateTransform();    // 更新数据进行变换
+});
+
+
+
+container.addEventListener('mousedown', (event) =>{
+    event.preventDefault();   
+});
+
+
+// 图片移动的事件函数
+image.addEventListener('mousedown', (event) => {
+
+    event.preventDefault();   // 阻止默认的鼠标事件
+    image.style.transitionDuration = "0s"; // 修改过度动画时间为0，即没有过度动画，提高实时性
+
+    let startClientX = event.clientX;
+    let startClientY = event.clientY;
+
+    container.addEventListener('mousemove', dragImage);
+    container.addEventListener('mouseup', () => {
+      container.removeEventListener('mousemove', dragImage);
+    });
+
+
+    function dragImage(event) {
+
+      let distanceX = event.clientX - startClientX;
+      let distanceY = event.clientY - startClientY;
+
+      currentTranslateX += distanceX;
+      currentTranslateY += distanceY;
+
+      startClientX = event.clientX;
+      startClientY = event.clientY;
+
+      updateTransform();
+    }
+});
 
 
 function main() {

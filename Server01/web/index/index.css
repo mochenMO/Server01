@@ -221,19 +221,17 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     width: 70%; 
     height: 92%;
-    /* color: red; */
- 
     /* border: 1px solid red; */
     
     border-radius:15px;
     background-color: #fff;
 
-
+    overflow: hidden; /* 规定标签内部内容，超出该标签可见区域时，被截断的方式，hidden是影藏 */
+    /* background-color: #C0C0C0; */
 
     position: absolute;
     left: 250px; /* 将该元素向左侧移动50像素*/
     top: 57px; /*将该元素向下移动20像素 */
-
 }
 
 
@@ -311,23 +309,85 @@
 }
 
 
-
-#run {
-    width: 30px;
-    height: 30px;
-    margin-top: 10px;
-
+#box1 ul {
+    list-style: none;
     position: absolute;
-    left: 30%;
+    left: 30%; 
 }
 
+#box1 li {
+    list-style: none;
+    float: left;
+}
+
+
+#box1 img {
+    /* width: 30px;
+    height: 30px; */
+    
+    /* margin-right: 30px; */
+}
+
+
+#btn_run{
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    margin-right: 23px;
+}
+
+#btn_reset{
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    margin-right: 30px;
+}
+
+#btn_exchange{
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    margin-right: 30px;
+}
+
+#btn_add{
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    margin-right: 30px;
+}
+
+#btn_downLoad{
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    margin-right: 35px;
+}
 
 #box2 img {
     width: 40%;
     height: auto;
-    margin: 0 auto;
-    
+    transition: transform 0.3s ease;
+    /*
+    * transition 属性用来设置过渡效果即形态变换的，它接受三个值：变换效果函数、持续时间和时间函数。
+    * translate()位移变换函数其它还有，scale()，rotate()，skew() 等函数。
+    * 0.3s 是指过渡动画的持续时间
+    * ease 指定了过渡动画的时间函数，即缓动函数。它会使初始和结尾状态之间的变化逐渐加速，直到在结尾时达到最大速度。
+    */
     position: absolute;
     left:30%;
     top:5%;
 }
+
+
+.image-zoom-container {
+    overflow: hidden;
+    width: 50%;
+    height: 50%;
+  }
+  
+  .image-zoom-container img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }

@@ -26,18 +26,19 @@
 
 void RequestMainFunc(myServer::SocketItem* clientSockItem, myRoute::Route& route, std::vector<void*>& res)
 {
-    char *recvBuffer = new char[10240]();   // 加()表示用0填充
+    char* recvBuffer = new char[10240]();   // 加()表示用0填充
     int len = recv(clientSockItem->socket, recvBuffer, 10239, 0);
     std::cout << recvBuffer << std::endl;
-    
 
-    myHttp::HttpRequest httpRequest(recvBuffer);
+    if (recvBuffer[0] == '\0') {
+        std::cout << "无效请求" << std::endl;
+    }
+    else {
+        myHttp::HttpRequest httpRequest(recvBuffer);
+        route.distribute_route(clientSockItem, httpRequest, res);
+        closesocket(clientSockItem->socket);
+    }
 
-
-    route.distribute_route(clientSockItem, httpRequest, res);
-
-   
-    closesocket(clientSockItem->socket);
     delete[] recvBuffer;
     delete clientSockItem;
     std::cout << "请求处理完毕，连接已断开" << std::endl;
